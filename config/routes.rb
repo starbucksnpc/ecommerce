@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  namespace :admin do
+    root to: "dashboard#index"  # set root route of admin dashboard
+    resources :products         # add route for products
+    resources :categories       # add route for categories
+  end
+  
+  # set root route for users
+  root to: "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
