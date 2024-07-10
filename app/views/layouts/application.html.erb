@@ -11,6 +11,25 @@
   </head>
 
   <body>
-    <%= yield %>
+  <header>
+  <nav>
+    <%= link_to 'Home', root_path %>
+    <% if user_signed_in? %>
+      <%= link_to 'Admin Dashboard', admin_root_path %>
+      <%= form_for :logout, url: destroy_user_session_path, method: :delete, html: { data: { turbo: false } } do %>
+        <%= submit_tag 'Log out' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path %>
+    <% end %>
+  </nav>
+</header>
+
+
+<% flash.each do |key, value| %>
+  <div class="flash <%= key %>"><%= value %></div>
+<% end %>
+
+<%= yield %>
   </body>
 </html>
